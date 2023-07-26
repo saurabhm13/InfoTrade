@@ -1,5 +1,6 @@
 package com.example.stockmarketapp.data.remote
 
+import com.example.stockmarketapp.data.remote.dto.CompanyInfoDto
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.GET
@@ -12,6 +13,18 @@ interface StockApi {
     suspend fun getListing(
         @Query("apikey") apiKey: String = API_KEY
     ): ResponseBody
+
+    @GET("query?function=TIME_SERES_INTRADAY&interval=60min&datatype=csv")
+    suspend fun getIntradayInfo(
+        @Query("symbol") symbol: String,
+        @Query("apikey") apiKey: String = API_KEY
+    ): ResponseBody
+
+    @GET("query?function=OVERVIEW")
+    suspend fun getCompanyInfo(
+        @Query("symbol") symbol: String,
+        @Query("apikey") apiKey: String = API_KEY
+    ): CompanyInfoDto
 
     companion object {
         const val API_KEY = "IK0WBHK9RZSL85SK"
