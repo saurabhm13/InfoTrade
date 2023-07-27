@@ -20,6 +20,6 @@ interface StockRepository {
 
     suspend fun getCompanyInfo(
         symbol: String
-    ): Response<CompanyInfo>
+    ): Resource<CompanyInfo>
 
 }

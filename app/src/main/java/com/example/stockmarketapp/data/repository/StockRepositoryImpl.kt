@@ -92,8 +92,21 @@ class StockRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCompanyInfo(symbol: String): Response<CompanyInfo> {
-        TODO("Not yet implemented")
+    override suspend fun getCompanyInfo(symbol: String): Resource<CompanyInfo> {
+        return try {
+            val result = api.getCompanyInfo(symbol)
+            Resource.Success(result.toCompanyInfo())
+        } catch(e: IOException) {
+            e.printStackTrace()
+            Resource.Error(
+                message = "Couldn't load company info"
+            )
+        } catch(e: HttpException) {
+            e.printStackTrace()
+            Resource.Error(
+                message = "Couldn't load company info"
+            )
+        }
     }
 
 
