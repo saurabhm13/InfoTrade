@@ -14,7 +14,7 @@ interface StockApi {
         @Query("apikey") apiKey: String = API_KEY
     ): ResponseBody
 
-    @GET("query?function=TIME_SERES_INTRADAY&interval=60min&datatype=csv")
+    @GET("query?function=TIME_SERIES_INTRADAY&interval=60min&datatype=csv")
     suspend fun getIntradayInfo(
         @Query("symbol") symbol: String,
         @Query("apikey") apiKey: String = API_KEY
