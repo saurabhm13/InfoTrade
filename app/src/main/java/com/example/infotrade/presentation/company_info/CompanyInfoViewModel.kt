@@ -11,6 +11,9 @@ import com.example.infotrade.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,25 +22,26 @@ class CompanyInfoViewModel @Inject constructor(
     private val repository: StockRepository
 ): ViewModel() {
 
-    var state by mutableStateOf(CompanyInfoState())
+    var companyInfoState by mutableStateOf(CompanyInfoState())
 
     init {
         viewModelScope.launch {
             val symbol = savedStateHandle.get<String>("symbol") ?: return@launch
-            state = state.copy(isLoading = true)
+            companyInfoState = companyInfoState.copy(isLoading = true)
             val companyInfoResult = async { repository.getCompanyInfo(symbol = symbol) }
             val intradayInfoResult = async { repository.getIntradayInfo(symbol = symbol) }
+            val incomeStatementResult = async { repository.getIncomeStatementInfo(symbol = symbol) }
 
             when (val result = companyInfoResult.await()) {
                 is Resource.Success -> {
-                    state = state.copy(
+                    companyInfoState = companyInfoState.copy(
                         company = result.data,
                         isLoading = false,
                         error = null
                     )
                 }
                 is Resource.Error -> {
-                    state = state.copy(
+                    companyInfoState = companyInfoState.copy(
                         isLoading = false,
                         error = result.message,
                         company = null
@@ -48,14 +52,32 @@ class CompanyInfoViewModel @Inject constructor(
 
             when (val result = intradayInfoResult.await()) {
                 is Resource.Success -> {
-                    state = state.copy(
+                    companyInfoState = companyInfoState.copy(
                         stockInfos = result.data ?: emptyList(),
                         isLoading = false,
                         error = null
                     )
                 }
                 is Resource.Error -> {
-                    state = state.copy(
+                    companyInfoState = companyInfoState.copy(
+                        isLoading = false,
+                        error = result.message,
+                        company = null
+                    )
+                }
+                else -> Unit
+            }
+
+            when (val result = incomeStatementResult.await()) {
+                is Resource.Success -> {
+                    companyInfoState = companyInfoState.copy(
+                        incomeStatementInfo = result.data,
+                        isLoading = false,
+                        error = null
+                    )
+                }
+                is Resource.Error -> {
+                    companyInfoState = companyInfoState.copy(
                         isLoading = false,
                         error = result.message,
                         company = null
@@ -64,6 +86,36 @@ class CompanyInfoViewModel @Inject constructor(
                 else -> Unit
             }
         }
+    }
+
+    fun getFormatedNumber(number: Long): String {
+
+        if (number != null) {
+            return when {
+                number >= 1_000_000_000 -> String.format("%.1fB", number / 1_000_000_000.0)
+                number >= 1_000_000 -> String.format("%.1fM", number / 1_000_000.0)
+                number >= 1_000 -> String.format("%.1fk", number / 1_000.0)
+                else -> number.toString()
+            }
+        }
+        return "-"
+    }
+
+    fun getYear(dateString: String): String {
+        val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH)
+        val date = LocalDate.parse(dateString, inputFormatter)
+
+        return date.year.toString()
+    }
+
+    fun getMonthYear(dateString: String): String {
+        val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH)
+        val date = LocalDate.parse(dateString, inputFormatter)
+
+        val year = date.year.toString()
+        val monthYear = date.month.toString().capitalize(Locale.ROOT) + " " + year
+
+        return monthYear
     }
 
 }

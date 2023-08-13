@@ -25,15 +25,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun IncomeStatement(
-    revenue: String,
-    revenueYnYChange: String,
-    operatingExpense: String,
-    operatingExpenseYnYChange: String,
+fun CashFlow(
     netIncome: String,
     netIncomeYnYChange: String,
-    ebitda: String,
-    ebitdaYnYChange: String,
+    cashForOperations: String,
+    cashForOperationsYnYChange: String,
+    cashForInvesting: String,
+    cashForInvestingYnYChange: String,
+    cashForFinancing: String,
+    cashForFinancingYnYChange: String,
     PreviousYear: String,
     isVisible: Boolean,
     onRowClick: () -> Unit
@@ -54,7 +54,7 @@ fun IncomeStatement(
             Alignment.CenterVertically
         ) {
             Text(
-                text = "Income Statement",
+                text = "Cash Flow",
                 style = MaterialTheme.typography.h2
             )
 //            Image(
@@ -65,6 +65,7 @@ fun IncomeStatement(
         }
 
         if (isVisible) {
+
             Spacer(modifier = Modifier.height(10.dp))
             Row(
                 modifier = Modifier
@@ -91,61 +92,9 @@ fun IncomeStatement(
                     modifier = Modifier.weight(1.4f)
                 )
             }
-
-            // Revenue
             Spacer(modifier = Modifier.height(10.dp))
-            Divider(modifier = Modifier.fillMaxWidth())
-            Spacer(modifier = Modifier.height(10.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                Text(
-                    text = "Revenue",
-                    style = MaterialTheme.typography.h3,
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier.weight(1.8f)
-                )
-                Text(
-                    text = revenue,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1f)
-                )
-                Text(
-                    text = revenueYnYChange,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1.4f)
-                )
-            }
-
-            // Operating Expense
-            Spacer(modifier = Modifier.height(10.dp))
-            Divider(modifier = Modifier.fillMaxWidth())
-            Spacer(modifier = Modifier.height(10.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                Text(
-                    text = "Operating Expense",
-                    style = MaterialTheme.typography.h3,
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier.weight(1.8f)
-                )
-                Text(
-                    text = operatingExpense,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1f)
-                )
-                Text(
-                    text = operatingExpenseYnYChange,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1.4f)
-                )
-            }
 
             // Net Income
-            Spacer(modifier = Modifier.height(10.dp))
             Divider(modifier = Modifier.fillMaxWidth())
             Spacer(modifier = Modifier.height(10.dp))
             Row(
@@ -169,9 +118,9 @@ fun IncomeStatement(
                     modifier = Modifier.weight(1.4f)
                 )
             }
-
-            // EBITDA
             Spacer(modifier = Modifier.height(10.dp))
+
+            // Cash For Operations
             Divider(modifier = Modifier.fillMaxWidth())
             Spacer(modifier = Modifier.height(10.dp))
             Row(
@@ -179,18 +128,70 @@ fun IncomeStatement(
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "EBITDA",
+                    text = "Cash For Operations",
                     style = MaterialTheme.typography.h3,
                     textAlign = TextAlign.Start,
                     modifier = Modifier.weight(1.8f)
                 )
                 Text(
-                    text = ebitda,
+                    text = cashForOperations,
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
                 Text(
-                    text = ebitdaYnYChange,
+                    text = cashForOperationsYnYChange,
+                    style = MaterialTheme.typography.h3,
+                    modifier = Modifier.weight(1.4f)
+                )
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+
+            // Cash For Investing
+            Divider(modifier = Modifier.fillMaxWidth())
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    text = "Cash For Investing",
+                    style = MaterialTheme.typography.h3,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier.weight(1.8f)
+                )
+                Text(
+                    text = cashForInvesting,
+                    style = MaterialTheme.typography.h3,
+                    modifier = Modifier.weight(1f)
+                )
+                Text(
+                    text = cashForInvestingYnYChange,
+                    style = MaterialTheme.typography.h3,
+                    modifier = Modifier.weight(1.4f)
+                )
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+
+            // Cash For Financing
+            Divider(modifier = Modifier.fillMaxWidth())
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    text = "Cash For Financing",
+                    style = MaterialTheme.typography.h3,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier.weight(1.8f)
+                )
+                Text(
+                    text = cashForFinancing,
+                    style = MaterialTheme.typography.h3,
+                    modifier = Modifier.weight(1f)
+                )
+                Text(
+                    text = cashForFinancingYnYChange,
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1.4f)
                 )

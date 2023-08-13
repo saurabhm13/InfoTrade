@@ -5,9 +5,11 @@ import com.example.infotrade.data.local.StockDatabase
 import com.example.infotrade.data.mappers.toCompanyInfo
 import com.example.infotrade.data.mappers.toCompanyListing
 import com.example.infotrade.data.mappers.toCompanyListingEntity
+import com.example.infotrade.data.mappers.toIncomeStatement
 import com.example.infotrade.data.remote.StockApi
 import com.example.infotrade.domain.model.CompanyInfo
 import com.example.infotrade.domain.model.CompanyListing
+import com.example.infotrade.domain.model.IncomeStatement
 import com.example.infotrade.domain.model.IntradayInfo
 import com.example.infotrade.domain.repository.StockRepository
 import com.example.infotrade.util.Resource
@@ -108,5 +110,19 @@ class StockRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getIncomeStatementInfo(symbol: String): Resource<IncomeStatement> {
+        return try {
+            val result = api.getIncomeStatement(symbol)
+            Resource.Success(result.toIncomeStatement())
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Resource.Error(message = "Couldn't load Income Statement info")
+        } catch(e: HttpException) {
+            e.printStackTrace()
+            Resource.Error(
+                message = "Couldn't load Income Statement info"
+            )
+        }
+    }
 
 }

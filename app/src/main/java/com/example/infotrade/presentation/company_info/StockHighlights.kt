@@ -9,11 +9,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -29,7 +31,6 @@ fun StockHighlights(
 
     Column(modifier = Modifier
         .fillMaxSize()
-        .padding(5.dp)
     ) {
 
         // Previous Close
@@ -37,7 +38,7 @@ fun StockHighlights(
             modifier = Modifier
                 .fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(15.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -46,23 +47,22 @@ fun StockHighlights(
         ) {
             Text(
                 text = "PREVIOUS CLOSE",
-                fontStyle = FontStyle.Italic,
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.h4
             )
             Text(
                 text = previousClose,
-                fontStyle = FontStyle.Italic,
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.h4,
+                fontWeight = FontWeight.Bold
             )
         }
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(15.dp))
 
         // Day Range
         Divider(
             modifier = Modifier
                 .fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(15.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -71,23 +71,22 @@ fun StockHighlights(
         ) {
             Text(
                 text = "DAY RANGE",
-                fontStyle = FontStyle.Italic,
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.h4,
             )
             Text(
                 text = dayRange,
-                fontStyle = FontStyle.Italic,
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.h4,
+                fontWeight = FontWeight.Bold
             )
         }
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(15.dp))
 
         // Market Cap
         Divider(
             modifier = Modifier
                 .fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(15.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -96,23 +95,22 @@ fun StockHighlights(
         ) {
             Text(
                 text = "MARKET CAP",
-                fontStyle = FontStyle.Italic,
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.h4,
             )
             Text(
                 text = marketCap,
-                fontStyle = FontStyle.Italic,
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.h4,
+                fontWeight = FontWeight.Bold
             )
         }
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(15.dp))
 
         // P/E Ratio
         Divider(
             modifier = Modifier
                 .fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(15.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -121,23 +119,22 @@ fun StockHighlights(
         ) {
             Text(
                 text = "P/E RATIO",
-                fontStyle = FontStyle.Italic,
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.h4,
             )
             Text(
                 text = peRatio,
-                fontStyle = FontStyle.Italic,
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.h4,
+                fontWeight = FontWeight.Bold
             )
         }
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(15.dp))
 
         // Dividend yield
         Divider(
             modifier = Modifier
                 .fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(15.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -146,23 +143,22 @@ fun StockHighlights(
         ) {
             Text(
                 text = "DIVIDEND YIELD",
-                fontStyle = FontStyle.Italic,
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.h4,
             )
             Text(
                 text = dividendYield,
-                fontStyle = FontStyle.Italic,
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.h4,
+                fontWeight = FontWeight.Bold
             )
         }
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(15.dp))
 
         // Primary Exchange
         Divider(
             modifier = Modifier
                 .fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(15.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -171,16 +167,15 @@ fun StockHighlights(
         ) {
             Text(
                 text = "PRIMARY EXCHANGE",
-                fontStyle = FontStyle.Italic,
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.h4,
             )
             Text(
                 text = primaryExchange,
-                fontStyle = FontStyle.Italic,
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.h4,
+                fontWeight = FontWeight.Bold
             )
         }
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(15.dp))
 
     }
 

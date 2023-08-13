@@ -23,17 +23,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.infotrade.ui.theme.Typography
 
 @Composable
-fun IncomeStatement(
-    revenue: String,
-    revenueYnYChange: String,
-    operatingExpense: String,
-    operatingExpenseYnYChange: String,
-    netIncome: String,
-    netIncomeYnYChange: String,
-    ebitda: String,
-    ebitdaYnYChange: String,
+fun BalanceSheet(
+    cashAndShortTermInvestment: String,
+    cashAndShortTermInvestmentYnYChange: String,
+    totalAssets: String,
+    totalAssetsYnYChange: String,
+    totalLiabilities: String,
+    totalLiabilitiesYnYChange: String,
+    totalEquity: String,
+    totalEquityYnYChange: String,
+    sharesOutstanding: String,
+    sharesOutstandingYnYChange: String,
     PreviousYear: String,
     isVisible: Boolean,
     onRowClick: () -> Unit
@@ -48,13 +51,13 @@ fun IncomeStatement(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(0.dp,13.dp,0.dp,13.dp)
+                .padding(0.dp, 13.dp, 0.dp, 13.dp)
                 .clickable { onRowClick() },
             Arrangement.SpaceBetween,
             Alignment.CenterVertically
         ) {
             Text(
-                text = "Income Statement",
+                text = "Balance Statement",
                 style = MaterialTheme.typography.h2
             )
 //            Image(
@@ -91,9 +94,9 @@ fun IncomeStatement(
                     modifier = Modifier.weight(1.4f)
                 )
             }
+            Spacer(modifier = Modifier.height(10.dp))
 
             // Revenue
-            Spacer(modifier = Modifier.height(10.dp))
             Divider(modifier = Modifier.fillMaxWidth())
             Spacer(modifier = Modifier.height(10.dp))
             Row(
@@ -107,19 +110,19 @@ fun IncomeStatement(
                     modifier = Modifier.weight(1.8f)
                 )
                 Text(
-                    text = revenue,
+                    text = cashAndShortTermInvestment,
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
                 Text(
-                    text = revenueYnYChange,
+                    text = cashAndShortTermInvestmentYnYChange,
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1.4f)
                 )
             }
-
-            // Operating Expense
             Spacer(modifier = Modifier.height(10.dp))
+
+            // Total Assets
             Divider(modifier = Modifier.fillMaxWidth())
             Spacer(modifier = Modifier.height(10.dp))
             Row(
@@ -127,25 +130,25 @@ fun IncomeStatement(
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "Operating Expense",
+                    text = "Total Assets",
                     style = MaterialTheme.typography.h3,
                     textAlign = TextAlign.Start,
                     modifier = Modifier.weight(1.8f)
                 )
                 Text(
-                    text = operatingExpense,
+                    text = totalAssets,
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
                 Text(
-                    text = operatingExpenseYnYChange,
+                    text = totalAssetsYnYChange,
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1.4f)
                 )
             }
-
-            // Net Income
             Spacer(modifier = Modifier.height(10.dp))
+
+            // Total Liabilities
             Divider(modifier = Modifier.fillMaxWidth())
             Spacer(modifier = Modifier.height(10.dp))
             Row(
@@ -153,25 +156,25 @@ fun IncomeStatement(
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "Net Income",
+                    text = "Total Liabilities",
                     style = MaterialTheme.typography.h3,
                     textAlign = TextAlign.Start,
                     modifier = Modifier.weight(1.8f)
                 )
                 Text(
-                    text = netIncome,
+                    text = totalLiabilities,
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
                 Text(
-                    text = netIncomeYnYChange,
+                    text = totalLiabilitiesYnYChange,
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1.4f)
                 )
             }
-
-            // EBITDA
             Spacer(modifier = Modifier.height(10.dp))
+
+            // Total Equity
             Divider(modifier = Modifier.fillMaxWidth())
             Spacer(modifier = Modifier.height(10.dp))
             Row(
@@ -179,20 +182,47 @@ fun IncomeStatement(
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "EBITDA",
+                    text = "Total Equity",
                     style = MaterialTheme.typography.h3,
                     textAlign = TextAlign.Start,
                     modifier = Modifier.weight(1.8f)
                 )
                 Text(
-                    text = ebitda,
+                    text = totalEquity,
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
                 Text(
-                    text = ebitdaYnYChange,
+                    text = totalEquityYnYChange,
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1.4f)
+                )
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+
+            // Shares Outstanding
+            Divider(modifier = Modifier.fillMaxWidth())
+            Spacer(modifier = Modifier.height(10.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    text = "Shares Outstanding",
+                    style = MaterialTheme.typography.h3,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier.weight(1.8f)
+                )
+                Text(
+                    text = sharesOutstanding,
+                    style = MaterialTheme.typography.h3,
+                    modifier = Modifier.weight(1f)
+                )
+                Text(
+                    text = sharesOutstandingYnYChange,
+                    style = MaterialTheme.typography.h3,
+                    modifier = Modifier.weight(1.4f)
+
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
