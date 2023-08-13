@@ -2,11 +2,15 @@ package com.example.infotrade.data.repository
 
 import com.example.infotrade.data.csv.CSVParser
 import com.example.infotrade.data.local.StockDatabase
+import com.example.infotrade.data.mappers.toBalanceSheet
+import com.example.infotrade.data.mappers.toCashFlow
 import com.example.infotrade.data.mappers.toCompanyInfo
 import com.example.infotrade.data.mappers.toCompanyListing
 import com.example.infotrade.data.mappers.toCompanyListingEntity
 import com.example.infotrade.data.mappers.toIncomeStatement
 import com.example.infotrade.data.remote.StockApi
+import com.example.infotrade.domain.model.BalanceSheet
+import com.example.infotrade.domain.model.CashFlow
 import com.example.infotrade.domain.model.CompanyInfo
 import com.example.infotrade.domain.model.CompanyListing
 import com.example.infotrade.domain.model.IncomeStatement
@@ -124,5 +128,36 @@ class StockRepositoryImpl @Inject constructor(
             )
         }
     }
+
+    override suspend fun getBalanceSheet(symbol: String): Resource<BalanceSheet> {
+        return try {
+            val result = api.getBalanceSheet(symbol)
+            Resource.Success(result.toBalanceSheet())
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Resource.Error(message = "Couldn't load Balance Sheet info")
+        } catch(e: HttpException) {
+            e.printStackTrace()
+            Resource.Error(
+                message = "Couldn't load Balance Sheet info"
+            )
+        }
+    }
+
+    override suspend fun getCashFlow(symbol: String): Resource<CashFlow> {
+        return try {
+            val result = api.getCashFlow(symbol)
+            Resource.Success(result.toCashFlow())
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Resource.Error(message = "Couldn't load Cash Flow info")
+        } catch(e: HttpException) {
+            e.printStackTrace()
+            Resource.Error(
+                message = "Couldn't load Cash Flow info"
+            )
+        }
+    }
+
 
 }

@@ -96,7 +96,7 @@ fun BalanceSheet(
             }
             Spacer(modifier = Modifier.height(10.dp))
 
-            // Revenue
+            // Cash and short term investment
             Divider(modifier = Modifier.fillMaxWidth())
             Spacer(modifier = Modifier.height(10.dp))
             Row(
@@ -104,7 +104,7 @@ fun BalanceSheet(
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "Revenue",
+                    text = "Cash and short term investment",
                     style = MaterialTheme.typography.h3,
                     textAlign = TextAlign.Start,
                     modifier = Modifier.weight(1.8f)

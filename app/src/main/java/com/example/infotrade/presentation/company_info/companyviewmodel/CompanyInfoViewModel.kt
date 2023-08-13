@@ -1,4 +1,4 @@
-package com.example.infotrade.presentation.company_info
+package com.example.infotrade.presentation.company_info.companyviewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.infotrade.domain.repository.StockRepository
+import com.example.infotrade.presentation.company_info.companystate.CompanyInfoState
 import com.example.infotrade.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
@@ -31,6 +32,8 @@ class CompanyInfoViewModel @Inject constructor(
             val companyInfoResult = async { repository.getCompanyInfo(symbol = symbol) }
             val intradayInfoResult = async { repository.getIntradayInfo(symbol = symbol) }
             val incomeStatementResult = async { repository.getIncomeStatementInfo(symbol = symbol) }
+            val balanceSheetResult = async { repository.getBalanceSheet(symbol = symbol) }
+            val cashFlowResult = async { repository.getCashFlow(symbol = symbol) }
 
             when (val result = companyInfoResult.await()) {
                 is Resource.Success -> {
@@ -85,20 +88,54 @@ class CompanyInfoViewModel @Inject constructor(
                 }
                 else -> Unit
             }
+
+            when (val result = balanceSheetResult.await()) {
+                is Resource.Success -> {
+                    companyInfoState = companyInfoState.copy(
+                        balanceSheetInfo = result.data,
+                        isLoading = false,
+                        error = null
+                    )
+                }
+                is Resource.Error -> {
+                    companyInfoState = companyInfoState.copy(
+                        isLoading = false,
+                        error = result.message,
+                        company = null
+                    )
+                }
+                else -> Unit
+            }
+
+            when (val result = cashFlowResult.await()) {
+                is Resource.Success -> {
+                    companyInfoState = companyInfoState.copy(
+                        cashFlowInfo = result.data,
+                        isLoading = false,
+                        error = null
+                    )
+                }
+                is Resource.Error -> {
+                    companyInfoState = companyInfoState.copy(
+                        isLoading = false,
+                        error = result.message,
+                        company = null
+                    )
+                }
+                else -> Unit
+            }
         }
     }
 
     fun getFormatedNumber(number: Long): String {
 
-        if (number != null) {
-            return when {
-                number >= 1_000_000_000 -> String.format("%.1fB", number / 1_000_000_000.0)
-                number >= 1_000_000 -> String.format("%.1fM", number / 1_000_000.0)
-                number >= 1_000 -> String.format("%.1fk", number / 1_000.0)
-                else -> number.toString()
-            }
+        return when {
+            number < 0 -> "-${getFormatedNumber(-number)}"
+            number >= 1_000_000_000 -> String.format("%.1fB", number / 1_000_000_000.0)
+            number >= 1_000_000 -> String.format("%.1fM", number / 1_000_000.0)
+            number >= 1_000 -> String.format("%.1fk", number / 1_000.0)
+            else -> number.toString()
         }
-        return "-"
     }
 
     fun getYear(dateString: String): String {

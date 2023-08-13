@@ -1,5 +1,7 @@
 package com.example.infotrade.domain.repository
 
+import com.example.infotrade.domain.model.BalanceSheet
+import com.example.infotrade.domain.model.CashFlow
 import com.example.infotrade.domain.model.CompanyInfo
 import com.example.infotrade.domain.model.CompanyListing
 import com.example.infotrade.domain.model.IncomeStatement
@@ -25,5 +27,13 @@ interface StockRepository {
     suspend fun getIncomeStatementInfo(
         symbol: String
     ): Resource<IncomeStatement>
+
+    suspend fun getBalanceSheet(
+        symbol: String
+    ): Resource<BalanceSheet>
+
+    suspend fun getCashFlow(
+        symbol: String
+    ): Resource<CashFlow>
 
 }

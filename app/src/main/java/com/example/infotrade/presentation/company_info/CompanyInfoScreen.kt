@@ -1,5 +1,6 @@
 package com.example.infotrade.presentation.company_info
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,6 +37,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.infotrade.presentation.company_info.companyviewmodel.CompanyInfoViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -46,6 +48,7 @@ fun CompanyInfoScreen(
     viewModel: CompanyInfoViewModel = hiltViewModel()
 ) {
     val state = viewModel.companyInfoState
+
     if (state.error == null) {
         state.company?.let { company ->
             Scaffold(
@@ -144,9 +147,14 @@ fun CompanyInfoScreen(
                     }
                     Divider(modifier = Modifier.fillMaxWidth())
 
+//                    if (state.incomeStatementInfo?.quarterlyReports.isNullOrEmpty()) {
+//
+//                    }else {
+//
+//                    }
+
                     // Income Statement
                     var isIncomeStatementVisible by remember { mutableStateOf(true) }
-
 
                     state.incomeStatementInfo?.quarterlyReports?.get(0)?.let { incomeStatement ->
                         val year = viewModel.getYear(incomeStatement.date)
@@ -167,46 +175,63 @@ fun CompanyInfoScreen(
                             isIncomeStatementVisible = !isIncomeStatementVisible
                         }
                     }
+
                     Divider(modifier = Modifier.fillMaxWidth())
 
                     // Balance Sheet
                     var isBalanceSheetVisible by remember { mutableStateOf(false) }
 
-                    BalanceSheet(
-                        cashAndShortTermInvestment = "19B",
-                        cashAndShortTermInvestmentYnYChange = "23B",
-                        totalAssets = "45B",
-                        totalAssetsYnYChange = "3%",
-                        totalLiabilities = "10B",
-                        totalLiabilitiesYnYChange = "1.3%",
-                        totalEquity = "65B",
-                        totalEquityYnYChange = "2.5%",
-                        sharesOutstanding = "1B",
-                        sharesOutstandingYnYChange = "6%",
-                        PreviousYear = "2022",
-                        isVisible = isBalanceSheetVisible
-                    ) {
-                        isBalanceSheetVisible = !isBalanceSheetVisible
+                    state.balanceSheetInfo?.quarterReport?.get(0)?.let { balanceSheetReport ->
+                        val year = viewModel.getYear(balanceSheetReport.date)
+                        val quarter = viewModel.getMonthYear(balanceSheetReport.date)
+
+                        BalanceSheet(
+                            cashAndShortTermInvestment = viewModel.getFormatedNumber(balanceSheetReport.cashAndShortTermInvestments.toLong()),
+                            cashAndShortTermInvestmentYnYChange = "23B",
+                            totalAssets = viewModel.getFormatedNumber(balanceSheetReport.totalAssets.toLong()),
+                            totalAssetsYnYChange = "3%",
+                            totalLiabilities = viewModel.getFormatedNumber(balanceSheetReport.totalLiabilities.toLong()),
+                            totalLiabilitiesYnYChange = "1.3%",
+                            totalEquity = viewModel.getFormatedNumber(balanceSheetReport.totalEquity.toLong()),
+                            totalEquityYnYChange = "2.5%",
+                            sharesOutstanding = viewModel.getFormatedNumber(balanceSheetReport.shareOutstanding.toLong()),
+                            sharesOutstandingYnYChange = "6%",
+                            PreviousYear = quarter,
+                            isVisible = isBalanceSheetVisible
+                        ) {
+                            isBalanceSheetVisible = !isBalanceSheetVisible
+                        }
+
                     }
+
+
                     Divider(modifier = Modifier.fillMaxWidth())
 
                     // Cash Flow
                     var isCashFlowVisible by remember { mutableStateOf(false) }
 
-                    CashFlow(
-                        netIncome = "18B",
-                        netIncomeYnYChange = "3.45%",
-                        cashForOperations = "12B",
-                        cashForOperationsYnYChange = "2%",
-                        cashForInvesting = "34B",
-                        cashForInvestingYnYChange = "5.2%",
-                        cashForFinancing = "23B",
-                        cashForFinancingYnYChange = "1%",
-                        PreviousYear = "2022",
-                        isVisible = isCashFlowVisible
-                    ) {
-                        isCashFlowVisible = !isCashFlowVisible
+                    state.cashFlowInfo?.quarterReport?.get(0)?.let { cashFlowReport ->
+                        val year = viewModel.getYear(cashFlowReport.date)
+                        val quarter = viewModel.getMonthYear(cashFlowReport.date)
+
+                        CashFlow(
+                            netIncome = viewModel.getFormatedNumber(cashFlowReport.netIncome.toLong()),
+                            netIncomeYnYChange = "3.45%",
+                            cashForOperations = viewModel.getFormatedNumber(cashFlowReport.cashForOperations.toLong()),
+                            cashForOperationsYnYChange = "2%",
+                            cashForInvesting = viewModel.getFormatedNumber(cashFlowReport.cashForInvesting.toLong()),
+                            cashForInvestingYnYChange = "5.2%",
+                            cashForFinancing = viewModel.getFormatedNumber(cashFlowReport.cashForFinancing.toLong()),
+                            cashForFinancingYnYChange = "1%",
+                            PreviousYear = quarter,
+                            isVisible = isCashFlowVisible
+                        ) {
+                            isCashFlowVisible = !isCashFlowVisible
+                        }
+
                     }
+
+
 
                     Spacer(modifier = Modifier.height(8.dp))
                     Divider(
