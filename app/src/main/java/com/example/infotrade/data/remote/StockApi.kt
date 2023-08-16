@@ -19,31 +19,31 @@ interface StockApi {
     @GET("query?function=TIME_SERIES_INTRADAY&interval=60min&datatype=csv")
     suspend fun getIntradayInfo(
         @Query("symbol") symbol: String,
-        @Query("apikey") apiKey: String = API_KEY7
+        @Query("apikey") apiKey: String = API_KEY2
     ): ResponseBody
 
     @GET("query?function=OVERVIEW")
     suspend fun getCompanyInfo(
         @Query("symbol") symbol: String,
-        @Query("apikey") apiKey: String = API_KEY7
+        @Query("apikey") apiKey: String = API_KEY2
     ): CompanyInfoDto
 
     @GET("query?function=INCOME_STATEMENT")
     suspend fun getIncomeStatement(
         @Query("symbol") symbol: String,
-        @Query("apikey") apiKey: String = API_KEY8
+        @Query("apikey") apiKey: String = API_KEY2
     ): IncomeStatementDto
 
     @GET("query?function=BALANCE_SHEET")
     suspend fun getBalanceSheet(
         @Query("symbol") symbol: String,
-        @Query("apikey") apiKey: String = API_KEY9
+        @Query("apikey") apiKey: String = API_KEY2
     ): BalanceSheetDto
 
     @GET("query?function=CASH_FLOW")
     suspend fun getCashFlow(
         @Query("symbol") symbol: String,
-        @Query("apikey") apiKey: String = API_KEY10
+        @Query("apikey") apiKey: String = API_KEY2
     ): CashFlowDto
 
     companion object {
@@ -57,6 +57,7 @@ interface StockApi {
         const val API_KEY8 = "EU11AFOO8YLHOBRG"
         const val API_KEY9 = "098VV63RGMC12TGB"
         const val API_KEY10 = "7OLBISC7AZLPOXIV"
+        const val DEMO_API = "demo"
         const val BASE_URL = "https://alphavantage.co"
     }
 

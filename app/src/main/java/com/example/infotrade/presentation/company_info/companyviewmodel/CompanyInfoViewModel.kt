@@ -155,4 +155,14 @@ class CompanyInfoViewModel @Inject constructor(
         return monthYear
     }
 
+    fun calculatePerChange(currentClose: Float, previousClose: Float): String {
+        val change = ((currentClose-previousClose)*100)/currentClose
+        return String.format("%.2f", change)
+    }
+
+    fun calculatePerChangeLong(previousValue: Float, currentValue: Float): String {
+        val change = (((previousValue-currentValue)*100)/previousValue).toFloat()
+        return String.format("%.2f", change)
+    }
+
 }
