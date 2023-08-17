@@ -13,31 +13,31 @@ val Typography = Typography(
     body1 = TextStyle(
         fontFamily = FontFamily.Serif,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
+        fontSize = 14.sp
     ),
     h1 = TextStyle(
         fontFamily = FontFamily.Serif,
         fontWeight = FontWeight.Bold,
-        fontSize = 26.sp
+        fontSize = 25.sp
     ),
     h2 = TextStyle(
         fontFamily = FontFamily.Serif,
         fontWeight = FontWeight.Bold,
-        fontSize = 18.sp
+        fontSize = 17.sp
     ),
     h3 = TextStyle(
         fontFamily = FontFamily.Serif,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 14.sp,
+        fontSize = 13.sp,
         textAlign = TextAlign.End
     ),
     h4 = TextStyle(
         fontFamily = FontFamily.Serif,
-        fontSize = 14.sp
+        fontSize = 13.sp
     ),
     subtitle1 = TextStyle(
         fontFamily = FontFamily.Serif,
-        fontSize = 12.sp
+        fontSize = 11.sp
     )
 
     /* Other default text styles to override

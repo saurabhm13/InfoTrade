@@ -12,8 +12,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDownward
+import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material.icons.filled.Upload
+import androidx.compose.material.icons.outlined.Expand
+import androidx.compose.material.icons.outlined.ExpandLess
+import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,17 +31,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.infotrade.R
 
 @Composable
 fun CashFlow(
     netIncome: String,
     netIncomeYnYChange: String,
+    isNetIncomeIncreasing: Boolean,
     cashForOperations: String,
     cashForOperationsYnYChange: String,
+    isCashForOperationsIncreasing: Boolean,
     cashForInvesting: String,
     cashForInvestingYnYChange: String,
+    isCashForInvestmentIncreasing: Boolean,
     cashForFinancing: String,
     cashForFinancingYnYChange: String,
+    isCashForFinanceIncreasing: Boolean,
     PreviousYear: String,
     isVisible: Boolean,
     onRowClick: () -> Unit
@@ -57,11 +70,18 @@ fun CashFlow(
                 text = "Cash Flow",
                 style = MaterialTheme.typography.h2
             )
-//            Image(
-//                painter = painterResource(id = R.drawable.ic_expand),
-//                contentDescription = "Expand Icon",
-//                modifier = Modifier.size(24.dp)
-//            )
+            if (isVisible) {
+                Icon(
+                    Icons.Outlined.ExpandLess,
+                    contentDescription = "Collapse"
+                )
+            }else {
+                Icon(
+                    Icons.Outlined.ExpandMore,
+                    contentDescription = "Expand",
+                )
+            }
+
         }
 
         if (isVisible) {
@@ -112,11 +132,34 @@ fun CashFlow(
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
-                Text(
-                    text = netIncomeYnYChange,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1.4f)
-                )
+                Row(
+                    modifier = Modifier.weight(1.4f),
+                    Arrangement.End
+                ){
+                    if (isNetIncomeIncreasing) {
+                        Icon(
+                            Icons.Default.ArrowUpward,
+                            contentDescription = "Increasing",
+                            tint = Color.Green
+                        )
+                    } else {
+                        Icon(
+                            Icons.Default.ArrowDownward,
+                            contentDescription = "Decreasing",
+                            tint = Color.Red
+                        )
+                    }
+
+                    Text(
+                        text = netIncomeYnYChange,
+                        style = MaterialTheme.typography.h3,
+                        color = if (isNetIncomeIncreasing) {
+                            Color.Green
+                        } else {
+                            Color.Red
+                        }
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -138,11 +181,34 @@ fun CashFlow(
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
-                Text(
-                    text = cashForOperationsYnYChange,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1.4f)
-                )
+                Row(
+                    modifier = Modifier.weight(1.4f),
+                    Arrangement.End
+                ){
+                    if (isCashForOperationsIncreasing) {
+                        Icon(
+                            Icons.Default.ArrowUpward,
+                            contentDescription = "Increasing",
+                            tint = Color.Green
+                        )
+                    } else {
+                        Icon(
+                            Icons.Default.ArrowDownward,
+                            contentDescription = "Decreasing",
+                            tint = Color.Red
+                        )
+                    }
+
+                    Text(
+                        text = cashForOperationsYnYChange,
+                        style = MaterialTheme.typography.h3,
+                        color = if (isCashForOperationsIncreasing) {
+                            Color.Green
+                        } else {
+                            Color.Red
+                        }
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -164,11 +230,34 @@ fun CashFlow(
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
-                Text(
-                    text = cashForInvestingYnYChange,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1.4f)
-                )
+                Row(
+                    modifier = Modifier.weight(1.4f),
+                    Arrangement.End
+                ){
+                    if (isCashForInvestmentIncreasing) {
+                        Icon(
+                            Icons.Default.ArrowUpward,
+                            contentDescription = "Increasing",
+                            tint = Color.Green
+                        )
+                    } else {
+                        Icon(
+                            Icons.Default.ArrowDownward,
+                            contentDescription = "Decreasing",
+                            tint = Color.Red
+                        )
+                    }
+
+                    Text(
+                        text = cashForInvestingYnYChange,
+                        style = MaterialTheme.typography.h3,
+                        color = if (isCashForInvestmentIncreasing) {
+                            Color.Green
+                        } else {
+                            Color.Red
+                        }
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -190,11 +279,34 @@ fun CashFlow(
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
-                Text(
-                    text = cashForFinancingYnYChange,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1.4f)
-                )
+                Row(
+                    modifier = Modifier.weight(1.4f),
+                    Arrangement.End
+                ){
+                    if (isCashForFinanceIncreasing) {
+                        Icon(
+                            Icons.Default.ArrowUpward,
+                            contentDescription = "Increasing",
+                            tint = Color.Green
+                        )
+                    } else {
+                        Icon(
+                            Icons.Default.ArrowDownward,
+                            contentDescription = "Decreasing",
+                            tint = Color.Red
+                        )
+                    }
+
+                    Text(
+                        text = cashForFinancingYnYChange,
+                        style = MaterialTheme.typography.h3,
+                        color = if (isCashForFinanceIncreasing) {
+                            Color.Green
+                        } else {
+                            Color.Red
+                        }
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(10.dp))
         }

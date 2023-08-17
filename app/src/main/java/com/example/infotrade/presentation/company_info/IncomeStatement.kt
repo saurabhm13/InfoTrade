@@ -2,7 +2,9 @@ package com.example.infotrade.presentation.company_info
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,8 +14,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDownward
+import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material.icons.outlined.ExpandLess
+import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,22 +31,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.infotrade.R
 
 @Composable
 fun IncomeStatement(
     revenue: String,
     revenueYnYChange: String,
+    isRevenueIncreasing: Boolean,
     operatingExpense: String,
     operatingExpenseYnYChange: String,
+    isOperatingExpenseIncreasing: Boolean,
     netIncome: String,
     netIncomeYnYChange: String,
+    isNetIncomeIncreasing: Boolean,
     ebitda: String,
     ebitdaYnYChange: String,
+    isEbitdaIncreasing: Boolean,
     PreviousYear: String,
     isVisible: Boolean,
-    onRowClick: () -> Unit
+    onRowClick: () -> Unit,
 
-) {
+    ) {
 
     Column(
         modifier = Modifier
@@ -48,7 +61,7 @@ fun IncomeStatement(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(0.dp,13.dp,0.dp,13.dp)
+                .padding(0.dp, 13.dp, 0.dp, 13.dp)
                 .clickable { onRowClick() },
             Arrangement.SpaceBetween,
             Alignment.CenterVertically
@@ -57,11 +70,17 @@ fun IncomeStatement(
                 text = "Income Statement",
                 style = MaterialTheme.typography.h2
             )
-//            Image(
-//                painter = painterResource(id = R.drawable.ic_expand),
-//                contentDescription = "Expand Icon",
-//                modifier = Modifier.size(24.dp)
-//            )
+            if (isVisible) {
+                Icon(
+                    Icons.Outlined.ExpandLess,
+                    contentDescription = "Collapse"
+                )
+            }else {
+                Icon(
+                    Icons.Outlined.ExpandMore,
+                    contentDescription = "Expand",
+                )
+            }
         }
 
         if (isVisible) {
@@ -88,7 +107,7 @@ fun IncomeStatement(
                     text = "Y/Y Changes",
                     style = MaterialTheme.typography.subtitle1,
                     textAlign = TextAlign.End,
-                    modifier = Modifier.weight(1.4f)
+                    modifier = Modifier.weight(1.4f),
                 )
             }
 
@@ -111,11 +130,35 @@ fun IncomeStatement(
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
-                Text(
-                    text = revenueYnYChange,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1.4f)
-                )
+                Row(
+                    modifier = Modifier.weight(1.4f),
+                    Arrangement.End
+                ) {
+                    if (isRevenueIncreasing) {
+                        Icon(
+                            Icons.Default.ArrowUpward,
+                            contentDescription = "Increasing",
+                            tint = Color.Green
+                        )
+                    } else {
+                        Icon(
+                            Icons.Default.ArrowDownward,
+                            contentDescription = "Decreasing",
+                            tint = Color.Red
+                        )
+                    }
+
+                    Text(
+                        text = revenueYnYChange,
+                        style = MaterialTheme.typography.h3,
+                        color = if (isRevenueIncreasing) {
+                            Color.Green
+                        } else {
+                            Color.Red
+                        }
+                    )
+                }
+
             }
 
             // Operating Expense
@@ -137,11 +180,34 @@ fun IncomeStatement(
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
-                Text(
-                    text = operatingExpenseYnYChange,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1.4f)
-                )
+                Row(
+                    modifier = Modifier.weight(1.4f),
+                    Arrangement.End
+                ) {
+                    if (isOperatingExpenseIncreasing) {
+                        Icon(
+                            Icons.Default.ArrowUpward,
+                            contentDescription = "Increasing",
+                            tint = Color.Green
+                        )
+                    } else {
+                        Icon(
+                            Icons.Default.ArrowDownward,
+                            contentDescription = "Decreasing",
+                            tint = Color.Red
+                        )
+                    }
+
+                    Text(
+                        text = operatingExpenseYnYChange,
+                        style = MaterialTheme.typography.h3,
+                        color = if (isOperatingExpenseIncreasing) {
+                            Color.Green
+                        } else {
+                            Color.Red
+                        }
+                    )
+                }
             }
 
             // Net Income
@@ -163,11 +229,34 @@ fun IncomeStatement(
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
-                Text(
-                    text = netIncomeYnYChange,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1.4f)
-                )
+                Row(
+                    modifier = Modifier.weight(1.4f),
+                    Arrangement.End
+                ) {
+                    if (isNetIncomeIncreasing) {
+                        Icon(
+                            Icons.Default.ArrowUpward,
+                            contentDescription = "Increasing",
+                            tint = Color.Green
+                        )
+                    } else {
+                        Icon(
+                            Icons.Default.ArrowDownward,
+                            contentDescription = "Decreasing",
+                            tint = Color.Red
+                        )
+                    }
+
+                    Text(
+                        text = netIncomeYnYChange,
+                        style = MaterialTheme.typography.h3,
+                        color = if (isNetIncomeIncreasing) {
+                            Color.Green
+                        } else {
+                            Color.Red
+                        }
+                    )
+                }
             }
 
             // EBITDA
@@ -189,11 +278,34 @@ fun IncomeStatement(
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
-                Text(
-                    text = ebitdaYnYChange,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1.4f)
-                )
+                Row(
+                    modifier = Modifier.weight(1.4f),
+                    Arrangement.End
+                ) {
+                    if (isEbitdaIncreasing) {
+                        Icon(
+                            Icons.Default.ArrowUpward,
+                            contentDescription = "Increasing",
+                            tint = Color.Green
+                        )
+                    } else {
+                        Icon(
+                            Icons.Default.ArrowDownward,
+                            contentDescription = "Decreasing",
+                            tint = Color.Red
+                        )
+                    }
+
+                    Text(
+                        text = ebitdaYnYChange,
+                        style = MaterialTheme.typography.h3,
+                        color = if (isEbitdaIncreasing) {
+                            Color.Green
+                        } else {
+                            Color.Red
+                        }
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(10.dp))
         }

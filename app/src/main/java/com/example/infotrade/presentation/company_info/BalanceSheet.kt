@@ -12,8 +12,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDownward
+import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material.icons.outlined.ExpandLess
+import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,20 +29,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.infotrade.R
 import com.example.infotrade.ui.theme.Typography
 
 @Composable
 fun BalanceSheet(
     cashAndShortTermInvestment: String,
     cashAndShortTermInvestmentYnYChange: String,
+    isCashAndShortTermInvestmentIncreasing: Boolean,
     totalAssets: String,
     totalAssetsYnYChange: String,
+    isTotalAssetsIncreasing: Boolean,
     totalLiabilities: String,
     totalLiabilitiesYnYChange: String,
+    isTotalLiabilitiesIncreasing: Boolean,
     totalEquity: String,
     totalEquityYnYChange: String,
+    isTotalEquityIncreasing: Boolean,
     sharesOutstanding: String,
     sharesOutstandingYnYChange: String,
+    isSharesOutstandingIncreasing: Boolean,
     PreviousYear: String,
     isVisible: Boolean,
     onRowClick: () -> Unit
@@ -57,14 +69,20 @@ fun BalanceSheet(
             Alignment.CenterVertically
         ) {
             Text(
-                text = "Balance Statement",
+                text = "Balance Sheet",
                 style = MaterialTheme.typography.h2
             )
-//            Image(
-//                painter = painterResource(id = R.drawable.ic_expand),
-//                contentDescription = "Expand Icon",
-//                modifier = Modifier.size(24.dp)
-//            )
+            if (isVisible) {
+                Icon(
+                    Icons.Outlined.ExpandLess,
+                    contentDescription = "Collapse"
+                )
+            }else {
+                Icon(
+                    Icons.Outlined.ExpandMore,
+                    contentDescription = "Expand",
+                )
+            }
         }
 
         if (isVisible) {
@@ -114,11 +132,34 @@ fun BalanceSheet(
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
-                Text(
-                    text = cashAndShortTermInvestmentYnYChange,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1.4f)
-                )
+                Row(
+                    modifier = Modifier.weight(1.4f),
+                    Arrangement.End
+                ){
+                    if (isCashAndShortTermInvestmentIncreasing) {
+                        Icon(
+                            Icons.Default.ArrowUpward,
+                            contentDescription = "Increasing",
+                            tint = Color.Green
+                        )
+                    } else {
+                        Icon(
+                            Icons.Default.ArrowDownward,
+                            contentDescription = "Decreasing",
+                            tint = Color.Red
+                        )
+                    }
+
+                    Text(
+                        text = cashAndShortTermInvestmentYnYChange,
+                        style = MaterialTheme.typography.h3,
+                        color = if (isCashAndShortTermInvestmentIncreasing) {
+                            Color.Green
+                        } else {
+                            Color.Red
+                        }
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -140,11 +181,34 @@ fun BalanceSheet(
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
-                Text(
-                    text = totalAssetsYnYChange,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1.4f)
-                )
+                Row(
+                    modifier = Modifier.weight(1.4f),
+                    Arrangement.End
+                ){
+                    if (isTotalAssetsIncreasing) {
+                        Icon(
+                            Icons.Default.ArrowUpward,
+                            contentDescription = "Increasing",
+                            tint = Color.Green
+                        )
+                    } else {
+                        Icon(
+                            Icons.Default.ArrowDownward,
+                            contentDescription = "Decreasing",
+                            tint = Color.Red
+                        )
+                    }
+
+                    Text(
+                        text = totalAssetsYnYChange,
+                        style = MaterialTheme.typography.h3,
+                        color = if (isTotalAssetsIncreasing) {
+                            Color.Green
+                        } else {
+                            Color.Red
+                        }
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -166,11 +230,34 @@ fun BalanceSheet(
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
-                Text(
-                    text = totalLiabilitiesYnYChange,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1.4f)
-                )
+                Row(
+                    modifier = Modifier.weight(1.4f),
+                    Arrangement.End
+                ){
+                    if (isTotalLiabilitiesIncreasing) {
+                        Icon(
+                            Icons.Default.ArrowUpward,
+                            contentDescription = "Increasing",
+                            tint = Color.Green
+                        )
+                    } else {
+                        Icon(
+                            Icons.Default.ArrowDownward,
+                            contentDescription = "Decreasing",
+                            tint = Color.Red
+                        )
+                    }
+
+                    Text(
+                        text = totalLiabilitiesYnYChange,
+                        style = MaterialTheme.typography.h3,
+                        color = if (isTotalLiabilitiesIncreasing) {
+                            Color.Green
+                        } else {
+                            Color.Red
+                        }
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -192,11 +279,34 @@ fun BalanceSheet(
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
-                Text(
-                    text = totalEquityYnYChange,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1.4f)
-                )
+                Row(
+                    modifier = Modifier.weight(1.4f),
+                    Arrangement.End
+                ){
+                    if (isTotalEquityIncreasing) {
+                        Icon(
+                            Icons.Default.ArrowUpward,
+                            contentDescription = "Increasing",
+                            tint = Color.Green
+                        )
+                    } else {
+                        Icon(
+                            Icons.Default.ArrowDownward,
+                            contentDescription = "Decreasing",
+                            tint = Color.Red
+                        )
+                    }
+
+                    Text(
+                        text = totalEquityYnYChange,
+                        style = MaterialTheme.typography.h3,
+                        color = if (isTotalEquityIncreasing) {
+                            Color.Green
+                        } else {
+                            Color.Red
+                        }
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -218,12 +328,34 @@ fun BalanceSheet(
                     style = MaterialTheme.typography.h3,
                     modifier = Modifier.weight(1f)
                 )
-                Text(
-                    text = sharesOutstandingYnYChange,
-                    style = MaterialTheme.typography.h3,
-                    modifier = Modifier.weight(1.4f)
+                Row(
+                    modifier = Modifier.weight(1.4f),
+                    Arrangement.End
+                ){
+                    if (isSharesOutstandingIncreasing) {
+                        Icon(
+                            Icons.Default.ArrowUpward,
+                            contentDescription = "Increasing",
+                            tint = Color.Green
+                        )
+                    } else {
+                        Icon(
+                            Icons.Default.ArrowDownward,
+                            contentDescription = "Decreasing",
+                            tint = Color.Red
+                        )
+                    }
 
-                )
+                    Text(
+                        text = sharesOutstandingYnYChange,
+                        style = MaterialTheme.typography.h3,
+                        color = if (isSharesOutstandingIncreasing) {
+                            Color.Green
+                        } else {
+                            Color.Red
+                        }
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(10.dp))
         }
