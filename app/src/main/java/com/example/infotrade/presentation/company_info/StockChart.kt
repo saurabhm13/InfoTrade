@@ -2,6 +2,7 @@ package com.example.infotrade.presentation.company_info
 
 import android.graphics.Paint
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -37,22 +38,34 @@ fun StockChart(
         infos.minOfOrNull { it.close }?.toInt() ?: 0
     }
     val density = LocalDensity.current
-    val textPaint = remember {
-        Paint().apply {
-            color = android.graphics.Color.WHITE
-            textAlign = Paint.Align.CENTER
-            textSize = density.run { 12.sp.toPx() }
+    val textPaint: Paint
+    if (isSystemInDarkTheme()) {
+        textPaint = remember {
+            Paint().apply {
+                color = android.graphics.Color.WHITE
+                textAlign = Paint.Align.CENTER
+                textSize = density.run { 12.sp.toPx() }
+            }
+        }
+    }else {
+        textPaint = remember {
+            Paint().apply {
+                color = android.graphics.Color.BLACK
+                textAlign = Paint.Align.CENTER
+                textSize = density.run { 12.sp.toPx() }
+            }
         }
     }
 
+
     Canvas(modifier = modifier) {
         val spacePerHour  = (size.width - spacing) / infos.size
-        (0 until infos.size - 1 step 2).forEach { i ->
+        (4 until infos.size - 1 step 4).forEach { i ->
             val info = infos[i]
             val hour = info.date.hour
             drawContext.canvas.nativeCanvas.apply {
                 drawText(
-                    hour.toString(),
+                    "$hour:00",
                     spacing + i * spacePerHour,
                     size.height - 5,
                     textPaint
@@ -63,7 +76,7 @@ fun StockChart(
         (0..4).forEach { i ->
             drawContext.canvas.nativeCanvas.apply {
                 drawText(
-                    round(lowerValue + priceStep * i).toString(),
+                    (lowerValue + priceStep * i).toString(),
                     30f,
                     size.height - spacing - i * size.height / 5f,
                     textPaint

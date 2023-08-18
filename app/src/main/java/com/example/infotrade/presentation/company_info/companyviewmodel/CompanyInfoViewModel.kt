@@ -132,6 +132,7 @@ class CompanyInfoViewModel @Inject constructor(
 
         return when {
             number < 0 -> "-${getFormatedNumber(-number)}"
+            number >= 1_000_000_000_000 -> String.format("%.1fT", number / 1_000_000_000_000.0)
             number >= 1_000_000_000 -> String.format("%.1fB", number / 1_000_000_000.0)
             number >= 1_000_000 -> String.format("%.1fM", number / 1_000_000.0)
             number >= 1_000 -> String.format("%.1fk", number / 1_000.0)

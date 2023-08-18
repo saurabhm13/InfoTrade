@@ -45,6 +45,7 @@ import com.example.infotrade.presentation.company_info.companyviewmodel.CompanyI
 import com.example.infotrade.presentation.destinations.CompanyInfoScreenDestination.style
 import com.example.infotrade.ui.theme.GreenDark
 import com.example.infotrade.ui.theme.GreenLight
+import com.example.infotrade.ui.theme.Purple200
 import com.example.infotrade.ui.theme.RedDark
 import com.example.infotrade.ui.theme.RedLight
 import com.ramcosta.composedestinations.annotation.Destination
@@ -70,7 +71,7 @@ fun CompanyInfoScreen(
                                 color = Color.White
                             )
                         },
-                        backgroundColor = Color.Magenta,
+                        backgroundColor = Purple200,
                         contentColor = Color.White,
                         elevation = AppBarDefaults.TopAppBarElevation
                     )
@@ -390,38 +391,39 @@ fun CompanyInfoScreen(
 
                         }
 
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Divider(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "Industry: ${company.industry}",
+                            fontSize = 14.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                            overflow = TextOverflow.Ellipsis
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "Country: ${company.country}",
+                            fontSize = 14.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                            overflow = TextOverflow.Ellipsis
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Divider(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = company.description,
+                            fontSize = 12.sp,
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+
                     }
 
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Divider(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = "Industry: ${company.industry}",
-                        fontSize = 14.sp,
-                        modifier = Modifier.fillMaxWidth(),
-                        overflow = TextOverflow.Ellipsis
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = "Country: ${company.country}",
-                        fontSize = 14.sp,
-                        modifier = Modifier.fillMaxWidth(),
-                        overflow = TextOverflow.Ellipsis
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Divider(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = company.description,
-                        fontSize = 12.sp,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
                 }
 
             }
